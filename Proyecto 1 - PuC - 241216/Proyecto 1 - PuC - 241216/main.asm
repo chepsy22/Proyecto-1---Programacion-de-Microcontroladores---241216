@@ -944,7 +944,7 @@ ISR_TIMER0:
     BREQ recargar_timer   
     DEC R27               
 
-//recargar_timer:
+recargar_timer:
 //    LDI R16, 100               
 //    OUT TCNT0, R16
 
