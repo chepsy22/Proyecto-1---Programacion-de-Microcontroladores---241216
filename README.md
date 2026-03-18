@@ -1,8 +1,8 @@
-Programacion de Microcontroladores
-Proyecto 1: Reloj
-Jose Carlos Flores Rosales - 241216
-Universidad del Valle de Guatemala
-Marzo 2026
+- Programacion de Microcontroladores
+- Proyecto 1: Reloj
+- Jose Carlos Flores Rosales - 241216
+- Universidad del Valle de Guatemala
+- Marzo 2026
 
 ** DESCRIPCION
 El repositorio contiene el codigo y la documentacion para un reloj digital en Assembler AVR para el microcontrolador ATmega328p
