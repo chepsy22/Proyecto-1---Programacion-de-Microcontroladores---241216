@@ -173,7 +173,7 @@ clklogic:
 seguir_segundos:
     CLR R24               ; reinicia los milisegundos a 0
     INC R19               ; sube (o avanza) un segundo
-    CPI R19, 2            ; 2 usado para debugear, al presentar son 60 (segundos en un minuto)     
+    CPI R19, 60            ; 2 usado para debugear, al presentar son 60 (segundos en un minuto)     
     BREQ seguir_minutos   ; al hacer overflow se pasa a la logica de minutos
     RJMP tmrend_logic     
     
@@ -944,9 +944,9 @@ ISR_TIMER0:
     BREQ recargar_timer   
     DEC R27               
 
-recargar_timer:
-    LDI R16, 100               
-    OUT TCNT0, R16
+//recargar_timer:
+//    LDI R16, 100               
+//    OUT TCNT0, R16
 
     RCALL clklogic
 	RCALL trigger_alarma
