@@ -220,8 +220,8 @@ check_max_dias:
     BRNE check_meses_30   ; si no es Febrero, salta a revisar otros meses
     CPI R29, 2            ; decena de día = 2
     BRNE tmrend_logic		
-    CPI R28, 8          
-    BREQ reset_nuevo_mes  ; se compara que sea el dia 28 (de serlo, regresa el dia a 01)
+    CPI R28, 9          
+    BREQ reset_nuevo_mes  ; se compara que sea el dia 29 (de serlo, regresa el dia a 01)
     RJMP tmrend_logic
 
 check_meses_30:
@@ -618,13 +618,15 @@ validar_dia_por_mes:
     BRNE val_meses_30
 // si es febrero, revisa si los dias superan los 28 maximos
     CPI R29, 3
-    BREQ forzar_29_feb    ; si la decena es 3, llama a subrutina correctora
-    RJMP fin_botones      
+    BREQ forzar_28_feb    ; si la decena es 3 (30 o 31), baja a 28
+    CPI R28, 9            ; <--- ¡FALTA ESTO! revisa si es el dia 29
+    BREQ forzar_28_feb    ; <--- ¡FALTA ESTO! si es 29, baja a 28
+    RJMP fin_botones   
 
-forzar_29_feb:
-    LDI R16, 2            ; Forzar día a 29
+forzar_28_feb:
+    LDI R16, 2            ; Forzar día a 28
     MOV R29, R16
-    LDI R16, 9
+    LDI R16, 8
     MOV R28, R16
     RJMP fin_botones
 
@@ -686,9 +688,11 @@ check_limite_boton_dia:
     BRNE check_30_boton   
     CPI R17, 2            
     BRNE check_30_boton   
-// si es febrero los dias no pueden pasar de 29
-    CPI R29, 3            
-    BREQ reset_dia_boton
+// si es febrero, revisa si los dias superan los 28 maximos
+    CPI R29, 2            ; Solo revisamos si la decena es 2 (rango 20-29)
+    BRNE check_30_boton   ; Si no es 2, vamos a revisar los meses de 30
+    CPI R28, 9            ; Si la decena es 2 y la unidad llega a 9 (intenta poner 29)
+    BREQ reset_dia_boton  ; <--- ¡DEBE SER reset_dia_boton! Cicla al dia 01
     RJMP fin_botones
 
 check_30_boton:
@@ -768,7 +772,7 @@ set_max_dia:
 // dia maximo de febrero es 29
     LDI R16, 2
     MOV R29, R16          
-    LDI R16, 9
+    LDI R16, 8
     MOV R28, R16          
     RJMP fin_botones
 
