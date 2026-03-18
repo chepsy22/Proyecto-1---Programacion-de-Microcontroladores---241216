@@ -15,4 +15,4 @@ Multiplexado con 4 displays de 7 segmentos
 Maquina de estados finitos de 8 modos
 3 botones de control
 
-Enlace al video de Youtube: 
+Enlace al video de Youtube: https://youtu.be/zgfhF-9NSRQ
